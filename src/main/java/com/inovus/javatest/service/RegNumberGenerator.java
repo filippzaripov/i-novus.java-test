@@ -25,12 +25,9 @@ public class RegNumberGenerator {
         letters.add("С");
         letters.add("В");
         letters.add("М");
-
         letters.sort(new LetterComparator());
     }
 
-
-    // private String[] letters = {"А", "Е", "Т", "О", "Р", "Н", "У", "К", "Х", "С", "В", "М"};
     private final String region = "116 RUS";
 
     public RegNumber generateRandomRegNumber() {
@@ -51,21 +48,26 @@ public class RegNumberGenerator {
 
         regNumber.setRegNumber(lettersRegNumber.substring(0, 1) + numbers + lettersRegNumber.substring(1) + region);
         System.out.println();
+
         //TODO: make check with previous numbers
 
         return regNumber;
     }
 
     public RegNumber generateNextRegNumber() {
+
+        //TODO: finish with this method
+
         init();
-        regNumberService.getLastRegNumber();
+        RegNumber regNumber = regNumberService.getLastRegNumber();
+        String regNumberString = regNumber.getRegNumber();
+
+        String numberPart = regNumberString.substring(1, 4);
+        String letterPart = regNumberString.substring(0, 1) + regNumberString.substring(4, 6);
+
 
         return null;
     }
 
-    public String[] sort(String[] array) {
 
-
-        return null;
-    }
 }
