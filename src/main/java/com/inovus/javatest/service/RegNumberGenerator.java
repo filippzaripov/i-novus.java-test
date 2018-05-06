@@ -12,6 +12,10 @@ public class RegNumberGenerator {
 
     private ArrayList<String> letters = new ArrayList();
 
+    public RegNumberGenerator() {
+        init();
+    }
+
     private void init() {
         letters.add("А");
         letters.add("Е");
@@ -31,7 +35,6 @@ public class RegNumberGenerator {
     private final String region = "116 RUS";
 
     public RegNumber generateRandomRegNumber() {
-        init();
         RegNumber regNumber = new RegNumber();
         String lettersRegNumber = "";
         String numbers = "";
@@ -56,18 +59,75 @@ public class RegNumberGenerator {
 
     public RegNumber generateNextRegNumber() {
 
-        //TODO: finish with this method
 
-        init();
+        //TODO: make check with previous numbers
+
         RegNumber regNumber = regNumberService.getLastRegNumber();
-        String regNumberString = regNumber.getRegNumber();
 
-        String numberPart = regNumberString.substring(1, 4);
-        String letterPart = regNumberString.substring(0, 1) + regNumberString.substring(4, 6);
+        String numberPart = regNumber.getNumberPart();
+        String letterPart = regNumber.getLetterPart();
 
+        if (numberPart.equals("999") && !letterPart.equals("ХХХ")) {
+            regNumber.setLetterPart(increaseLetters(letterPart));
+            regNumber.setNumberPart("000");
+        } else if (!numberPart.equals("999")) {
+            regNumber.setNumberPart(increaseNumber(numberPart));
+        } else {
+            System.out.println("Next number is not available. Please choose random");
+            return null;
+        }
 
+        return regNumber;
+    }
+
+    private String increaseNumber(String number) {
+
+        if (!number.substring(2).equals("9")) {
+            int last = Integer.parseInt(number.substring(2));
+            last++;
+            return number.substring(0, 2) + last;
+        } else if (!number.substring(1, 2).equals("9")) {
+            int mid = Integer.parseInt(number.substring(1, 2));
+            mid++;
+            return number.substring(0, 1) + mid + "0";
+        } else {
+            int first = Integer.parseInt(number.substring(0, 1));
+            first++;
+            return first + "00";
+        }
+    }
+
+    private String increaseLetters(String letters) {
+
+        if (!letters.substring(2).equals(this.letters.get(this.letters.size() - 1))) {
+            String last = letters.substring(2);
+            for (int i = 0; i < this.letters.size(); i++) {
+                if (this.letters.get(i).equals(last)) {
+                    last = this.letters.get(i++);
+                    return letters.substring(0, 2) + last;
+                }
+            }
+
+        } else if (!letters.substring(1, 2).equals(this.letters.get(this.letters.size() - 1))) {
+            String mid = letters.substring(1, 2);
+            for (int i = 0; i < this.letters.size(); i++) {
+                if (this.letters.get(i).equals(mid)) {
+                    mid = this.letters.get(i++);
+                    return letters.substring(0,1) + mid + this.letters.get(0);
+                }
+            }
+        } else{
+            String first = letters.substring(0,1);
+            for (int i = 0; i < this.letters.size(); i++) {
+                if (this.letters.get(i).equals(first)){
+                    first = this.letters.get(i++);
+                    return first + this.letters.get(0) + this.letters.get(0);
+                }
+            }
+        }
         return null;
     }
+
 
 
 }
