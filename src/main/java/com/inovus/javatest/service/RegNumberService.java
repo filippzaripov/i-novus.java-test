@@ -11,11 +11,35 @@ public class RegNumberService {
     @Autowired
     private RegNumberRepository regNumberRepository;
 
-    public RegNumber getRandomNumber(){
-        return null;
+    @Autowired
+    private RegNumberGenerator regNumberGenerator;
+
+    public RegNumber getRandomRegNumber() {
+        return this.regNumberGenerator.generateRandomRegNumber(1);
+    }
+
+    public RegNumber getNextRegNumber() {
+        RegNumber regNumber= null;
+        try{
+            regNumber = regNumberGenerator.generateNextRegNumber();
+        }catch (NullPointerException e){
+            System.err.println("Next number couldn't be generated");
+        }
+        return regNumber;
     }
 
     public RegNumber getLastRegNumber(){
-        return null;
+        return this.regNumberRepository.findFirst1ByOrderByIdDesc();
+    }
+
+    public RegNumber addRegNumber(RegNumber regNumber){
+        return this.regNumberRepository.save(regNumber);
+    }
+    /**
+     * @param regNumber
+     * @return regNumber object if exists. Else - null
+     */
+    public RegNumber findRegNumberByRegNumberString(String regNumber) {
+        return regNumberRepository.findRegNumberByRegNumberString(regNumber);
     }
 }

@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RegNumberRepository extends CrudRepository<RegNumber, Integer> {
+
+    public RegNumber findFirst1ByOrderByIdDesc();
+
+    public RegNumber findRegNumberByRegNumberString(String regNumber);
 }

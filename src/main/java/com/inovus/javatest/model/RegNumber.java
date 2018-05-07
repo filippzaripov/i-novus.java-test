@@ -10,7 +10,7 @@ public class RegNumber {
     private int id;
 
     @Column
-    private String regNumber;
+    private String regNumberString;
 
     @Column
     private String letterPart;
@@ -18,13 +18,16 @@ public class RegNumber {
     @Column
     private String numberPart;
 
-    public RegNumber() {
-        setRegNumber(this.letterPart.substring(0,1) + this.numberPart + this.letterPart.substring(1));
+    public RegNumber() {}
 
+    public RegNumber(String numberPart, String letterPart){
+        setRegNumberString(letterPart.substring(0,1) + numberPart + letterPart.substring(1));
+        this.numberPart = numberPart;
+        this.letterPart = letterPart;
     }
 
-    public RegNumber(String regNumber) {
-        this.regNumber = regNumber;
+    public RegNumber(String regNumberString) {
+        this.regNumberString = regNumberString;
     }
 
     public int getId() {
@@ -35,12 +38,12 @@ public class RegNumber {
         this.id = id;
     }
 
-    public String getRegNumber() {
-        return regNumber;
+    public String getRegNumberString() {
+        return regNumberString;
     }
 
-    public void setRegNumber(String regNumber) {
-        this.regNumber = regNumber;
+    public void setRegNumberString(String regNumberString) {
+        this.regNumberString = regNumberString;
     }
 
     public String getLetterPart() {
@@ -62,6 +65,6 @@ public class RegNumber {
     @Override
     public String toString() {
         return "ID : " + this.id +
-                "Reg Number : " + this.regNumber;
+                "Reg Number : " + this.regNumberString;
     }
 }
