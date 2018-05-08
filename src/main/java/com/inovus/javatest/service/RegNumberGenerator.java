@@ -80,7 +80,7 @@ public class RegNumberGenerator {
      *
      * @return increased RegNumber. If it's impossible returns null
      */
-    //TODO: increasing letters doesn't work
+
 
     public RegNumber generateNextRegNumber() {
         RegNumber lastRegNumber = null;
@@ -142,11 +142,11 @@ public class RegNumberGenerator {
 
     private String increaseLetters(String letters) {
 
-        if (!letters.substring(2).equals(this.letters.get(this.letters.size() - 1))) {
+           if (!letters.substring(2).equals(this.letters.get(this.letters.size() - 1))) {
             String last = letters.substring(2);
             for (int i = 0; i < this.letters.size(); i++) {
                 if (this.letters.get(i).equals(last)) {
-                    last = this.letters.get(i++);
+                    last = this.letters.get(++i);
                     return letters.substring(0, 2) + last;
                 }
             }
@@ -155,7 +155,7 @@ public class RegNumberGenerator {
             String mid = letters.substring(1, 2);
             for (int i = 0; i < this.letters.size(); i++) {
                 if (this.letters.get(i).equals(mid)) {
-                    mid = this.letters.get(i++);
+                    mid = this.letters.get(++i);
                     return letters.substring(0, 1) + mid + this.letters.get(0);
                 }
             }
@@ -163,7 +163,7 @@ public class RegNumberGenerator {
             String first = letters.substring(0, 1);
             for (int i = 0; i < this.letters.size(); i++) {
                 if (this.letters.get(i).equals(first)) {
-                    first = this.letters.get(i++);
+                    first = this.letters.get(++i);
                     return first + this.letters.get(0) + this.letters.get(0);
                 }
             }
