@@ -5,7 +5,7 @@
 
 	<groupId>com.inovus</groupId>
 	<artifactId>java-test</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0-RELEASE</version>
 	<packaging>jar</packaging>
 
 	<name>java-test</name>
